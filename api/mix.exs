@@ -49,7 +49,10 @@ defmodule Commentator.MixProject do
       {:telemetry_poller, "~> 1.0"},
       {:gettext, "~> 0.18"},
       {:jason, "~> 1.2"},
-      {:plug_cowboy, "~> 2.5"}
+      {:plug_cowboy, "~> 2.5"},
+      {:ash, "~> 1.48.0-rc.6", override: true},
+      {:ash_json_api, "~> 0.28.4"},
+      {:ash_postgres, "~> 0.41.0-rc.5"}
     ]
   end
 
@@ -65,7 +68,8 @@ defmodule Commentator.MixProject do
       "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
       test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"],
-      "assets.deploy": ["esbuild default --minify", "phx.digest"]
+      "assets.deploy": ["esbuild default --minify", "phx.digest"],
+      "ash.migrations": ["ash_postgres.generate_migrations --apis Commentator.Api"]
     ]
   end
 end

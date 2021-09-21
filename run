@@ -1,0 +1,30 @@
+#! /usr/bin/env elixir
+defmodule Project.Tasks do
+  Mix.install([
+    {:muontrap, "~> 0.6.0"}
+  ])
+
+  def dev() do
+    IO.puts(IO.ANSI.green() <> "Starting application API/UI..." <> IO.ANSI.reset())
+
+    tasks = [
+      Task.async(fn ->
+        MuonTrap.cmd("npm", ["run", "dev"], cd: "ui/", into: IO.stream(:stdio, :line))
+      end),
+      Task.async(fn ->
+        MuonTrap.cmd("mix", ["phx.server"], cd: "api/", into: IO.stream(:stdio, :line))
+      end)
+    ]
+
+    Enum.map(tasks, &Task.await(&1, :infinity))
+  end
+
+  def main([task]) do
+    case task do
+      "dev" -> dev()
+      _ -> IO.puts(IO.ANSI.red() <> "Unknown argument: #{task}!")
+    end
+  end
+end
+
+Project.Tasks.main(System.argv())

@@ -10,6 +10,10 @@ import Config
 config :commentator,
   ecto_repos: [Commentator.Repo]
 
+config :mime, :types, %{
+  "application/vnd.api+json" => ["json"]
+}
+
 # Configures the endpoint
 config :commentator, CommentatorWeb.Endpoint,
   url: [host: "localhost"],

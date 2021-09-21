@@ -1,6 +1,8 @@
 defmodule CommentatorWeb.Router do
   use CommentatorWeb, :router
 
+  require AshJsonApi
+
   import CommentatorWeb.UserAuth
 
   pipeline :browser do
@@ -24,9 +26,10 @@ defmodule CommentatorWeb.Router do
   end
 
   # Other scopes may use custom stacks.
-  # scope "/api", CommentatorWeb do
-  #   pipe_through :api
-  # end
+  scope "/api" do
+    pipe_through :api
+    AshJsonApi.forward("/", Commentator.Api)
+  end
 
   # Enables LiveDashboard only for development
   #
