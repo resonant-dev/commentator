@@ -1,40 +1,20 @@
-import { useEffect, useState } from 'preact/hooks';
-import { Socket } from 'phoenix';
-
+import useResource from './hooks/useResource';
 import Comment from './components/Comment';
-import { apiFetch } from './utils/api';
-
-const socket = new Socket('ws://localhost:4040/socket', { params: { userToken: '123' } });
-socket.connect();
+import type { CommentType } from './types/comments';
 
 export const App = () => {
-    const [comments, setComments] = useState([]);
-
-    useEffect(() => {
-        apiFetch({
-            endpoint: 'comments',
-        }).then(({ data }) => {
-            setComments(data);
-            const channel = socket.channel('site:mysite');
-            channel.on('new_msg', (comment) => {
-                console.log({ comment });
-                setComments(comment.append(comment));
-            });
-            channel
-                .join()
-                .receive('ok', ({ messages }) => console.log('catching up', messages))
-                .receive('error', ({ reason }) => console.log('failed join', reason))
-                .receive('timeout', () => console.log('Networking issue. Still waiting...'));
-        });
-    }, []);
+    const { data, loading } = useResource<CommentType>({ endpoint: 'comments', channelRoom: 'site:mysite' });
 
     return (
-        <div>
-            <ul role="list" className="divide-y divide-gray-200">
-                {comments.map((comment: any) => (
-                    <Comment comment={comment} />
-                ))}
-            </ul>
+        <div className="bg-white">
+            <div>
+                <h2 className="sr-only">Comments</h2>
+                <div className="-my-10">
+                    {loading && !data.length && <div>Loading...</div>}
+                    {!!data.length &&
+                        data.map((comment: CommentType, id) => <Comment first={id === 0} comment={comment} />)}
+                </div>
+            </div>
         </div>
     );
 };
