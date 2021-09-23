@@ -2,7 +2,8 @@ defmodule Commentator.Comment do
   use Ash.Resource,
     data_layer: AshPostgres.DataLayer,
     extensions: [
-      AshJsonApi.Resource
+      AshJsonApi.Resource,
+      AshAdmin.Resource
     ]
 
   postgres do

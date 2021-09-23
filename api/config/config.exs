@@ -10,6 +10,8 @@ import Config
 config :commentator,
   ecto_repos: [Commentator.Repo]
 
+config :commentator, ash_apis: [Commentator.Api]
+
 config :mime, :types, %{
   "application/vnd.api+json" => ["json"]
 }

@@ -50,9 +50,11 @@ defmodule Commentator.MixProject do
       {:gettext, "~> 0.18"},
       {:jason, "~> 1.2"},
       {:plug_cowboy, "~> 2.5"},
+      {:cors_plug, "~> 2.0"},
       {:ash, "~> 1.48.0-rc.6", override: true},
       {:ash_json_api, "~> 0.28.4"},
-      {:ash_postgres, "~> 0.41.0-rc.5"}
+      {:ash_postgres, "~> 0.41.0-rc.5"},
+      {:ash_admin, "~> 0.3.0-rc.0"}
     ]
   end
 

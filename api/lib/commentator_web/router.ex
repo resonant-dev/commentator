@@ -1,5 +1,6 @@
 defmodule CommentatorWeb.Router do
   use CommentatorWeb, :router
+  import AshAdmin.Router
 
   require AshJsonApi
 
@@ -23,6 +24,15 @@ defmodule CommentatorWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :index
+  end
+
+  scope "/" do
+    # Pipe it through your browser pipeline
+    pipe_through [:browser]
+
+    ash_admin("/admin",
+      apis: [Commentator.Api]
+    )
   end
 
   # Other scopes may use custom stacks.
