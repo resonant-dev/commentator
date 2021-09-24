@@ -57,18 +57,13 @@ type Opts = {
     channelRoom: string;
 };
 
-const useResource = <T>({ endpoint, channelRoom }: Opts) => {
+const useResource = <T, N = T>({ endpoint, channelRoom }: Opts) => {
     const [state, dispatch] = useReducer<State<T>, Action>(reducer, initialState);
-    const { join, leave, subscribe } = useChannel(channelRoom);
+    const { push, subscribe, unsubscribe } = useChannel(channelRoom);
 
-    subscribe('new_msg', (item) => {
-        console.log({ item });
-        dispatch({ type: 'CH_NEW_MSG', payload: state.data.concat(item) });
-    });
-
-    const fetchComments = () => {
+    const fetchData = () => {
         dispatch({ type: 'FETCH_START' });
-        apiFetch({ endpoint })
+        return apiFetch({ endpoint })
             .then(({ data }) => {
                 dispatch({
                     type: 'FETCH_SUCCESS',
@@ -83,16 +78,44 @@ const useResource = <T>({ endpoint, channelRoom }: Opts) => {
             });
     };
 
+    const postData = (data: N) => {
+        dispatch({ type: 'FETCH_START' });
+        return apiFetch({
+            endpoint,
+            method: 'post',
+            data: {
+                data: { attributes: data },
+            },
+        })
+            .then(({ data }) => {
+                dispatch({
+                    type: 'FETCH_SUCCESS',
+                    payload: state.data.concat(data),
+                });
+            })
+            .catch((err) => {
+                dispatch({
+                    type: 'FETCH_ERROR',
+                    payload: err.message,
+                });
+            });
+    };
+
     useEffect(() => {
-        fetchComments();
-        join();
+        subscribe('new_comment', (comment) => {
+            dispatch({ type: 'CH_NEW_MSG', payload: state.data.concat(comment) });
+        });
+        fetchData();
         return () => {
-            leave();
+            unsubscribe('new_comment');
         };
     }, []);
 
     return {
         ...state,
+        postData,
+        push,
+        subscribe,
     };
 };
 

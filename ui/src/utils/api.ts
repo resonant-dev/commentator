@@ -1,7 +1,11 @@
-import axios from 'axios';
+import axios, { AxiosRequestConfig } from 'axios';
 const API_URL = 'http://localhost:4040/api';
 
-export const apiFetch = (config: any) =>
+export interface ApiConfig extends AxiosRequestConfig {
+    endpoint: string;
+}
+
+export const apiFetch = (config: ApiConfig) =>
     axios({
         ...config,
         method: config.method || 'get',
@@ -13,6 +17,7 @@ export const apiFetch = (config: any) =>
                   headers: {
                       Accept: '*/*',
                       Authorization: '',
+                      'Content-Type': 'application/vnd.api+json',
                   },
               }),
     })

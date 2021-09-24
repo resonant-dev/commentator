@@ -1,21 +1,44 @@
+import { useState, useEffect } from 'preact/hooks';
 import socket from '../utils/socket';
 
-const useChannel = (room: string) => {
+const useChannel = (room: string, subscriptions?: { event: string; cb(response?: any): void }[]) => {
+    const [isJoined, setIsJoined] = useState(false);
     const channel = socket.channel(room, {});
 
-    const { on: subscribe, push, leave } = channel;
+    const push = (event: string, payload: any, timeout?: number) => channel.push(event, payload, timeout);
+    const subscribe = (event: string, cb: (response?: any) => void) => {
+        console.log('subscribing to...', event);
+        channel.on(event, cb);
+    };
+    const unsubscribe = (event: string, ref?: number) => channel.off(event, ref);
 
-    const join = () =>
-        channel
-            .join()
-            .receive('ok', ({ messages }) => console.log('catching up', messages))
-            .receive('error', ({ reason }) => console.log('failed join', reason))
-            .receive('timeout', () => console.log('Networking issue. Still waiting...'));
+    useEffect(() => {
+        subscriptions?.forEach(({ event, cb }) => channel.on(event, cb));
+
+        !isJoined &&
+            channel
+                .join()
+                .receive('ok', ({ messages }) => {
+                    console.log('catching up', messages);
+                    setIsJoined(true);
+                })
+                .receive('error', ({ reason }) => {
+                    console.log('failed join', reason);
+                    setIsJoined(false);
+                })
+                .receive('timeout', () => {
+                    console.log('Networking issue. Still waiting...');
+                    setIsJoined(false);
+                });
+        return () => {
+            channel.leave();
+            setIsJoined(false);
+        };
+    }, []);
 
     return {
-        join,
-        leave,
         subscribe,
+        unsubscribe,
         push,
     };
 };

@@ -18,8 +18,8 @@ defmodule Commentator.Comment do
       allow_nil? false
     end
 
-    attribute :closed?, :boolean, allow_nil?: false, default: false
-    attribute :deleted?, :boolean, allow_nil?: false, default: false
+    attribute :closed?, :boolean, allow_nil?: true, default: false
+    attribute :deleted?, :boolean, allow_nil?: true, default: false
 
     create_timestamp :inserted_at
     update_timestamp :updated_at
