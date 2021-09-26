@@ -34,7 +34,7 @@ defmodule Commentator.MixProject do
   defp deps do
     [
       {:bcrypt_elixir, "~> 2.0"},
-      {:phoenix, "~> 1.6.0-rc.1", override: true},
+      {:phoenix, "~> 1.6.0", override: true},
       {:phoenix_ecto, "~> 4.4"},
       {:ecto_sql, "~> 3.6"},
       {:postgrex, ">= 0.0.0"},
@@ -51,6 +51,8 @@ defmodule Commentator.MixProject do
       {:jason, "~> 1.2"},
       {:plug_cowboy, "~> 2.5"},
       {:cors_plug, "~> 2.0"},
+      {:surface, "~> 0.5.2"},
+      {:surface_formatter, "~> 0.5.4"},
       {:ash, "~> 1.48.0-rc.6", override: true},
       {:ash_json_api, "~> 0.28.4"},
       {:ash_postgres, "~> 0.41.0-rc.5"},
