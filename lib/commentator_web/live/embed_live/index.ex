@@ -38,9 +38,6 @@ defmodule CommentatorWeb.EmbedLive do
   end
 
   def fetch_comments(_socket, _opts) do
-    IO.puts("Running callback")
-    test = Api.read!(Commentator.Comment)
-    IO.puts("Got... #{length(test)}")
-    test
+    Api.read!(Commentator.Comment)
   end
 end

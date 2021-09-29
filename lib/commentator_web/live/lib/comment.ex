@@ -19,7 +19,7 @@ defmodule CommentatorWeb.Lib.Comment do
             <div class="border-t border-gray-200 flex-1 py-4">
                 <h3 class="font-medium text-gray-900">User Name</h3>
                 <p>
-                  <time dateTime={@comment.inserted_at}>{@comment.inserted_at}</time>
+                  <time dateTime={@comment.inserted_at}>{Timex.format!(@comment.inserted_at, "%B %d, %Y", :strftime)}</time>
                 </p>
                 <div class="mt-4 prose prose-sm max-w-none text-gray-500">
                     {@comment.text}

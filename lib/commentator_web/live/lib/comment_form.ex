@@ -7,11 +7,12 @@ defmodule CommentatorWeb.Lib.CommentForm do
   alias Commentator.Comment
 
   data save_disabled, :boolean, default: true
+  data meta_pressed, :boolean, default: false
   data form, :struct
 
   def render(assigns) do
     ~F"""
-    <div class="text-sm text-gray-500 space-x-4">
+    <div :hook="CommentForm" class="text-sm text-gray-500 space-x-4">
       <Form for={@form} change="change" submit="submit">
           <Field name={:text}>
               <Label class="sr-only">
@@ -23,6 +24,8 @@ defmodule CommentatorWeb.Lib.CommentForm do
                       rows={3}
                       class="shadow-sm block w-full focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm border border-gray-300 rounded-md"
                       opts={placeholder: "Write a comment..."}
+                      keydown="handle_keydown"
+                      keyup="handle_keyup"
                   />
               </div>
           </Field>
@@ -77,7 +80,42 @@ defmodule CommentatorWeb.Lib.CommentForm do
      |> assign(:save_disabled, true)}
   end
 
+  def handle_event("handle_keydown", %{"key" => "Enter"}, socket) do
+    case socket.assigns.meta_pressed do
+      true -> submit_form(socket |> push_event("submitted", %{}))
+      false -> {:noreply, socket}
+    end
+  end
+
+  def handle_event("handle_keydown", %{"key" => key}, socket) do
+    case key do
+      n when n in ["Meta", "Control"] ->
+        {:noreply, assign(socket, :meta_pressed, true)}
+
+      _ ->
+        {:noreply, socket}
+    end
+  end
+
+  def handle_event("handle_keyup", %{"key" => key}, socket) do
+    case key do
+      n when n in ["Meta", "Control"] ->
+        {:noreply, assign(socket, :meta_pressed, false)}
+
+      _ ->
+        {:noreply, socket}
+    end
+  end
+
   def handle_event("submit", _params, socket) do
+    submit_form(socket)
+  end
+
+  defp new_form() do
+    AshPhoenix.Form.for_create(Comment, :create, api: Commentator.Api)
+  end
+
+  defp submit_form(socket) do
     case AshPhoenix.Form.submit(socket.assigns.form) do
       {:ok, _result} ->
         {:noreply,
@@ -88,9 +126,5 @@ defmodule CommentatorWeb.Lib.CommentForm do
       {:error, form} ->
         {:noreply, socket |> assign(:form, form)}
     end
-  end
-
-  defp new_form() do
-    AshPhoenix.Form.for_create(Comment, :create, api: Commentator.Api)
   end
 end

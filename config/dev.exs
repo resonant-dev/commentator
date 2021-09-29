@@ -64,6 +64,7 @@ config :commentator, CommentatorWeb.Endpoint,
 config :commentator, CommentatorWeb.Endpoint,
   live_reload: [
     patterns: [
+      ~r"lib/commentator_web/(live|components)/.*/.*(ex|js)$",
       ~r"priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$",
       ~r"priv/gettext/.*(po)$",
       ~r"lib/commentator_web/(live|views)/.*(ex)$",

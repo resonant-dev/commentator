@@ -7,7 +7,7 @@ defmodule Commentator.MixProject do
       version: "0.1.0",
       elixir: "~> 1.12",
       elixirc_paths: elixirc_paths(Mix.env()),
-      compilers: [:gettext] ++ Mix.compilers(),
+      compilers: [:gettext] ++ Mix.compilers() ++ [:surface],
       start_permanent: Mix.env() == :prod,
       aliases: aliases(),
       deps: deps()
@@ -57,7 +57,8 @@ defmodule Commentator.MixProject do
       {:ash_json_api, "~> 0.28.4"},
       {:ash_postgres, "~> 0.41.0-rc.5"},
       {:ash_admin, "~> 0.3.0-rc.0"},
-      {:ash_phoenix, "~> 0.5.14"}
+      {:ash_phoenix, "~> 0.5.14"},
+      {:timex, "~> 3.7"}
     ]
   end
 
