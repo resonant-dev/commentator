@@ -56,7 +56,8 @@ defmodule Commentator.MixProject do
       {:ash, "~> 1.48.0-rc.6", override: true},
       {:ash_json_api, "~> 0.28.4"},
       {:ash_postgres, "~> 0.41.0-rc.5"},
-      {:ash_admin, "~> 0.3.0-rc.0"}
+      {:ash_admin, "~> 0.3.0-rc.0"},
+      {:ash_phoenix, "~> 0.5.14"}
     ]
   end
 
@@ -72,8 +73,12 @@ defmodule Commentator.MixProject do
       "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],
       test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"],
-      "assets.deploy": ["esbuild default --minify", "phx.digest"],
-      "ash.migrations": ["ash_postgres.generate_migrations --apis Commentator.Api"]
+      "ash.migrations": ["ash_postgres.generate_migrations --apis Commentator.Api"],
+      "assets.deploy": [
+        "cmd --cd assets npm run deploy",
+        "esbuild default --minify",
+        "phx.digest"
+      ]
     ]
   end
 end

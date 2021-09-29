@@ -4,7 +4,8 @@ defmodule Commentator.Comment do
     extensions: [
       AshJsonApi.Resource,
       AshAdmin.Resource
-    ]
+    ],
+    notifiers: [Ash.Notifier.PubSub]
 
   postgres do
     table "comments"
@@ -30,6 +31,14 @@ defmodule Commentator.Comment do
     read :read
     update :update
     destroy :destroy
+  end
+
+  pub_sub do
+    module Commentator.Notifier
+    prefix "comment"
+    name Commentator.PubSub
+
+    publish :create, "created"
   end
 
   json_api do

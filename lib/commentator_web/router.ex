@@ -16,6 +16,16 @@ defmodule CommentatorWeb.Router do
     plug :fetch_current_user
   end
 
+  pipeline :browser_embed do
+    plug :accepts, ["html"]
+    plug :fetch_session
+    plug :fetch_live_flash
+    plug :put_root_layout, {CommentatorWeb.LayoutView, :embed}
+    plug :protect_from_forgery
+    plug :put_secure_browser_headers
+    plug :fetch_current_user
+  end
+
   pipeline :api do
     plug :accepts, ["json"]
   end
@@ -24,6 +34,12 @@ defmodule CommentatorWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :index
+  end
+
+  scope "/embed", CommentatorWeb do
+    pipe_through :browser_embed
+
+    live "/", EmbedLive, :index
   end
 
   scope "/" do

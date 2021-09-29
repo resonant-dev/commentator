@@ -33,6 +33,11 @@ config :commentator, CommentatorWeb.Endpoint,
 # at the `config/runtime.exs`.
 config :commentator, Commentator.Mailer, adapter: Swoosh.Adapters.Local
 
+config :surface, :components, [
+  {Surface.Components.Form.ErrorTag,
+   default_translator: {CommentatorWeb.ErrorHelpers, :translate_error}}
+]
+
 # Swoosh API client is needed for adapters other than SMTP.
 config :swoosh, :api_client, false
 
