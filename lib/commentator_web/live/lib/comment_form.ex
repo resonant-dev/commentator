@@ -82,7 +82,7 @@ defmodule CommentatorWeb.Lib.CommentForm do
 
   def handle_event("handle_keydown", %{"key" => "Enter"}, socket) do
     case socket.assigns.meta_pressed do
-      true -> submit_form(socket |> push_event("submitted", %{}))
+      true -> submit_form(socket, true)
       false -> {:noreply, socket}
     end
   end
@@ -115,13 +115,14 @@ defmodule CommentatorWeb.Lib.CommentForm do
     AshPhoenix.Form.for_create(Comment, :create, api: Commentator.Api)
   end
 
-  defp submit_form(socket) do
+  defp submit_form(socket, key_submit \\ false) do
     case AshPhoenix.Form.submit(socket.assigns.form) do
       {:ok, _result} ->
         {:noreply,
          socket
          |> assign(:form, new_form())
-         |> assign(:save_disabled, true)}
+         |> assign(:save_disabled, true)
+         |> push_event("submitted", %{key_submit: key_submit})}
 
       {:error, form} ->
         {:noreply, socket |> assign(:form, form)}

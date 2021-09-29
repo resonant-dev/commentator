@@ -11,7 +11,7 @@ defmodule CommentatorWeb.EmbedLive do
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="bg-white py-4 px-1">
         <h2 class="sr-only">Comments</h2>
-        <div class="-my-4">
+        <div id="comment-list" class="-my-4">
           {#for comment <- @comments}
             <Comment {=comment} />
           {#else}
@@ -21,6 +21,7 @@ defmodule CommentatorWeb.EmbedLive do
         <div class="border-t border-gray-200 mt-4 flex-1 py-4">
           <CommentForm id="new" />
         </div>
+        <div id="list-bottom" class="sr-only" />
       </div>
     </div>
     """
@@ -34,7 +35,10 @@ defmodule CommentatorWeb.EmbedLive do
 
   @impl true
   def handle_info(%{topic: topic, payload: %Phoenix.Socket.Broadcast{}}, socket) do
-    {:noreply, handle_live(socket, topic, :comments)}
+    {:noreply,
+     socket
+     |> push_event("post_submit", %{})
+     |> handle_live(topic, :comments)}
   end
 
   def fetch_comments(_socket, _opts) do
