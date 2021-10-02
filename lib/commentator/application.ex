@@ -8,15 +8,13 @@ defmodule Commentator.Application do
   @impl true
   def start(_type, _args) do
     children = [
-      # Start the Ecto repository
+      Commentator.PromEx,
       Commentator.Repo,
-      # Start the Telemetry supervisor
       CommentatorWeb.Telemetry,
-      # Start the PubSub system
       {Phoenix.PubSub, name: Commentator.PubSub},
-      # Start the Endpoint (http/https)
       CommentatorWeb.SitePresence,
       CommentatorWeb.Endpoint
+
       # Start a worker by calling: Commentator.Worker.start_link(arg)
       # {Commentator.Worker, arg}
     ]

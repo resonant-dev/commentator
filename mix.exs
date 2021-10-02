@@ -46,7 +46,7 @@ defmodule Commentator.MixProject do
       {:esbuild, "~> 0.2", runtime: Mix.env() == :dev},
       {:swoosh, "~> 1.3"},
       {:telemetry_metrics, "~> 0.6"},
-      {:telemetry_poller, "~> 1.0"},
+      {:telemetry_poller, "~> 1.0", override: true},
       {:gettext, "~> 0.18"},
       {:jason, "~> 1.2"},
       {:plug_cowboy, "~> 2.5"},
@@ -59,6 +59,7 @@ defmodule Commentator.MixProject do
       {:ash_admin, "~> 0.3.0-rc.0"},
       {:ash_phoenix, "~> 0.5.14"},
       {:timex, "~> 3.7"},
+      {:prom_ex, "~> 1.4"},
       {:credo, "~> 1.5", only: [:dev, :test], runtime: false},
       {:sobelow, "~> 0.11.1", only: [:dev, :test], runtime: false}
     ]
