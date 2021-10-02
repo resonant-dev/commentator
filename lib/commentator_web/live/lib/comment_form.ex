@@ -112,7 +112,7 @@ defmodule CommentatorWeb.Lib.CommentForm do
     submit_form(socket)
   end
 
-  defp new_form() do
+  defp new_form do
     AshPhoenix.Form.for_create(Comment, :create, api: Commentator.Api)
   end
 

@@ -4,9 +4,8 @@ defmodule Commentator.Accounts do
   """
 
   import Ecto.Query, warn: false
+  alias Commentator.Accounts.{User, UserNotifier, UserToken}
   alias Commentator.Repo
-
-  alias Commentator.Accounts.{User, UserToken, UserNotifier}
 
   ## Database getters
 

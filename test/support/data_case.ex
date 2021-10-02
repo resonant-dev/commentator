@@ -15,6 +15,7 @@ defmodule Commentator.DataCase do
   """
 
   use ExUnit.CaseTemplate
+  alias Ecto.Adapaters.SQL
 
   using do
     quote do
@@ -28,8 +29,8 @@ defmodule Commentator.DataCase do
   end
 
   setup tags do
-    pid = Ecto.Adapters.SQL.Sandbox.start_owner!(Commentator.Repo, shared: not tags[:async])
-    on_exit(fn -> Ecto.Adapters.SQL.Sandbox.stop_owner(pid) end)
+    pid = SQL.Sandbox.start_owner!(Commentator.Repo, shared: not tags[:async])
+    on_exit(fn -> SQL.Sandbox.stop_owner(pid) end)
     :ok
   end
 
