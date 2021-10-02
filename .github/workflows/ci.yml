@@ -5,7 +5,7 @@ on: [pull_request]
 jobs:
   ci-job:
     runs-on: ubuntu-latest
-    container: elixir:1.11-slim
+    container: elixir:1.12-slim
 
     services:
       postgres:
