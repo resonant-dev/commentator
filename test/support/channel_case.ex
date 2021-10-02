@@ -16,7 +16,7 @@ defmodule CommentatorWeb.ChannelCase do
   """
 
   use ExUnit.CaseTemplate
-  alias Ecto.Adapters.SQL
+  alias Ecto.Adapters.SQL.Sandbox
 
   using do
     quote do
@@ -30,8 +30,8 @@ defmodule CommentatorWeb.ChannelCase do
   end
 
   setup tags do
-    pid = SQL.Sandbox.start_owner!(Commentator.Repo, shared: not tags[:async])
-    on_exit(fn -> SQL.Sandbox.stop_owner(pid) end)
+    pid = Sandbox.start_owner!(Commentator.Repo, shared: not tags[:async])
+    on_exit(fn -> Sandbox.stop_owner(pid) end)
     :ok
   end
 end
