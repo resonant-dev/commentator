@@ -1,4 +1,5 @@
 defmodule CommentatorWeb.EmbedLive do
+  @moduledoc false
   use Surface.LiveView
 
   import AshPhoenix.LiveView
@@ -8,7 +9,7 @@ defmodule CommentatorWeb.EmbedLive do
   @impl true
   def render(assigns) do
     ~F"""
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div id="embed-live" :hook="EmbedLive" class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="bg-white py-4 px-1">
         <h2 class="sr-only">Comments</h2>
         <div id="comment-list" class="-my-4">
@@ -42,6 +43,8 @@ defmodule CommentatorWeb.EmbedLive do
   end
 
   def fetch_comments(_socket, _opts) do
-    Api.read!(Commentator.Comment)
+    Commentator.Comment
+    |> Ash.Query.sort(inserted_at: :asc)
+    |> Api.read!()
   end
 end

@@ -1,12 +1,11 @@
 defmodule Commentator.Notifier do
+  @moduledoc false
   use Ash.Notifier
 
-  def notify(
-        %Ash.Notifier.Notification{
-          resource: resource,
-          action: %{type: :create}
-        } = notification
-      ) do
+  def notify(%Ash.Notifier.Notification{
+        resource: resource,
+        action: %{type: :create}
+      }) do
     Phoenix.PubSub.broadcast(Commentator.PubSub, resource, {__MODULE__, :create, nil})
   end
 

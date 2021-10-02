@@ -1,4 +1,5 @@
 defmodule CommentatorWeb.Lib.Comment do
+  @moduledoc false
   use Surface.Component
 
   prop first, :boolean

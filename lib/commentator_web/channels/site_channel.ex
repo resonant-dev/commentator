@@ -1,4 +1,5 @@
 defmodule CommentatorWeb.SiteChannel do
+  @moduledoc false
   use CommentatorWeb, :channel
 
   @impl true

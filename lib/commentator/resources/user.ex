@@ -1,4 +1,5 @@
 defmodule Commentator.User do
+  @moduledoc false
   use Ash.Resource,
     data_layer: AshPostgres.DataLayer,
     extensions: [

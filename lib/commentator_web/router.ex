@@ -6,6 +6,8 @@ defmodule CommentatorWeb.Router do
 
   import CommentatorWeb.UserAuth
 
+  # @csp "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline' 'unsafe-eval'"
+
   pipeline :browser do
     plug :accepts, ["html"]
     plug :fetch_session
@@ -14,6 +16,7 @@ defmodule CommentatorWeb.Router do
     plug :protect_from_forgery
     plug :put_secure_browser_headers
     plug :fetch_current_user
+    # plug :put_secure_browser_headers, %{"content-security-policy" => @csp}
   end
 
   pipeline :browser_embed do

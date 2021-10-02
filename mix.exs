@@ -58,7 +58,9 @@ defmodule Commentator.MixProject do
       {:ash_postgres, "~> 0.41.0-rc.5"},
       {:ash_admin, "~> 0.3.0-rc.0"},
       {:ash_phoenix, "~> 0.5.14"},
-      {:timex, "~> 3.7"}
+      {:timex, "~> 3.7"},
+      {:credo, "~> 1.5", only: [:dev, :test], runtime: false},
+      {:sobelow, "~> 0.11.1", only: [:dev, :test], runtime: false}
     ]
   end
 
@@ -70,6 +72,8 @@ defmodule Commentator.MixProject do
   # See the documentation for `Mix` for more info on aliases.
   defp aliases do
     [
+      credo: "credo --strict",
+      sobelow: "sobelow --config",
       setup: ["deps.get", "ecto.setup"],
       "ecto.setup": ["ecto.create", "ecto.migrate", "run priv/repo/seeds.exs"],
       "ecto.reset": ["ecto.drop", "ecto.setup"],

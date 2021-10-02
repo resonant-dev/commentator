@@ -1,0 +1,46 @@
+name: CI
+
+on: [pull_request]
+
+jobs:
+  ci-job:
+    runs-on: ubuntu-latest
+    container: bitwalker/alpine-elixir-phoenix:latest
+
+    services:
+      postgres:
+        image: postgres
+        env:
+          POSTGRES_PASSWORD: postgres
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v2
+
+      - name: Install dependencies
+        run: mix deps.get
+
+      - name: Compile
+        run: mix compile
+
+      - name: Run Credo
+        run: mix credo
+
+      - name: Run Sobelow
+        run: mix sobelow
+
+      - name: Compile for Tests
+        run: MIX_ENV=test mix compile
+
+      - name: Run Tests
+        run: mix test
+        env:
+          POSTGRES_HOST: postgres
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_PORT: 5432

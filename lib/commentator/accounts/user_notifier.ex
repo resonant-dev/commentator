@@ -1,4 +1,5 @@
 defmodule Commentator.Accounts.UserNotifier do
+  @moduledoc false
   import Swoosh.Email
 
   alias Commentator.Mailer

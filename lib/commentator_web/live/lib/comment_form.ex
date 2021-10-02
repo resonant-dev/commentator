@@ -1,4 +1,5 @@
 defmodule CommentatorWeb.Lib.CommentForm do
+  @moduledoc false
   use Surface.LiveComponent
 
   alias Surface.Components.Form

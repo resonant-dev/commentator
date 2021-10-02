@@ -1,4 +1,5 @@
 defmodule Commentator.Api do
+  @moduledoc false
   use Ash.Api,
     extensions: [
       AshJsonApi.Api,
