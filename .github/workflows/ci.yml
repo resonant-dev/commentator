@@ -5,7 +5,7 @@ on: [pull_request]
 jobs:
   ci-job:
     runs-on: ubuntu-latest
-    container: bitwalker/alpine-elixir-phoenix:latest
+    container: elixir:1.11-slim
 
     services:
       postgres:
@@ -21,6 +21,9 @@ jobs:
     steps:
       - name: Check out repository code
         uses: actions/checkout@v2
+
+      - name: Add build deps
+        run: apt-get update && apt-get install -y --no-install-recommends build-essential git nodejs npm && mix do local.hex --force, local.rebar --force
 
       - name: Install dependencies
         run: mix deps.get
