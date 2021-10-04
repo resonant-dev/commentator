@@ -1,4 +1,3 @@
-# File: travl_life/entrypoint.sh
 #!/bin/bash
 # docker entrypoint script.
 
