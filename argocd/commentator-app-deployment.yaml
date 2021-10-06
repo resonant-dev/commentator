@@ -16,6 +16,7 @@ spec:
       containers:
       - name: commentator
         image: ghcr.io/resonant-dev/commentator/commentator:latest
+        imagePullPolicy: Always
         ports:
         - containerPort: 4000
         envFrom:
