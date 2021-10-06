@@ -67,6 +67,6 @@ jobs:
         env:
           USERNAME: ${{ secrets.GITHUB_USERNAME }}
           PASSWORD: ${{ secrets.PUSH_TOKEN }}
-          REGISTRY: "docker.pkg.github.com"
+          REGISTRY: "https://ghcr.io"
           TAG_NAME: "dev"
           LATEST: "true"
