@@ -7,12 +7,17 @@ import Config
 # any compile-time configuration in here, as it won't be applied.
 # The block below contains prod specific runtime configuration.
 if config_env() == :prod do
-  database_url =
-    System.get_env("DATABASE_URL") ||
+  db_host =
+    System.get_env("DATABASE_HOST") ||
       raise """
       environment variable DATABASE_URL is missing.
       For example: ecto://USER:PASS@HOST/DATABASE
       """
+
+  db_database = System.get_env("DATABASE_DB", "foodgrubs_prod1")
+  db_username = System.get_env("DATABASE_USER", "postgres")
+  db_password = System.get_env("DATABASE_PASSWORD", "postgres")
+  db_url = "ecto://#{db_username}:#{db_password}@#{db_host}/#{db_database}"
 
   config :commentator, Commentator.Repo,
     # ssl: true,

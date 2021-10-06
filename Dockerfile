@@ -66,7 +66,7 @@ WORKDIR /app
 RUN mkdir -p /app/data/mnesia
 
 # copy release to app container
-COPY --from=build /app/_build/prod/rel/travl_life .
+COPY --from=build /app/_build/prod/rel/commentator .
 COPY entrypoint.sh .
 RUN chown -R nobody: /app
 USER nobody
