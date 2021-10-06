@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: commentator-app
+spec:
+  replicas: 1
+  revisionHistoryLimit: 3
+  selector:
+    matchLabels:
+      app: commentator-app
+  template:
+    metadata:
+      labels:
+        app: commentator-app
+    spec:
+      containers:
+      - image: docker.pkg.github.com/resonant-dev/commentator/commentator:latest
+        name: commentator-app
+        ports:
+        - containerPort: 4000
