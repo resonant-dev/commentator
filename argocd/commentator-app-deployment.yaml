@@ -14,7 +14,7 @@ spec:
         app: commentator-app
     spec:
       containers:
-      - image: docker.pkg.github.com/resonant-dev/commentator/commentator:latest
+      - image: https://ghcr.io/resonant-dev/commentator/commentator:latest
         name: commentator-app
         ports:
         - containerPort: 4000
