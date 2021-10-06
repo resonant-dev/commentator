@@ -19,7 +19,7 @@ spec:
         ports:
         - containerPort: 4000
         envFrom:
-        - secretKeyRef:
+        - secretRef:
             name: commentator-dev-secrets
         - configMapRef:
             name: commentator-dev-config
