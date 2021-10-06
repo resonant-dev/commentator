@@ -3,5 +3,5 @@ kind: ConfigMap
 metadata:
   name: commentator-dev-config
 data:
-  PORT: 4000
-  POOL_SIZE: 10
+  PORT: '4000'
+  POOL_SIZE: '10'
