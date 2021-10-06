@@ -14,7 +14,13 @@ spec:
         app: commentator-app
     spec:
       containers:
-      - image: ghcr.io/resonant-dev/commentator/commentator:latest
-        name: commentator
+      - name: commentator
+        image: ghcr.io/resonant-dev/commentator/commentator:latest
         ports:
         - containerPort: 4000
+        envFrom:
+        - secretKeyRef:
+            name: commentator-dev-secrets
+        envFrom:
+        - configMapRef:
+            name: commentator-dev-config
