@@ -21,6 +21,5 @@ spec:
         envFrom:
         - secretKeyRef:
             name: commentator-dev-secrets
-        envFrom:
         - configMapRef:
             name: commentator-dev-config
