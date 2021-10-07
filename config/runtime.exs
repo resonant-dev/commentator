@@ -8,9 +8,9 @@ import Config
 # The block below contains prod specific runtime configuration.
 if config_env() == :prod do
   database_url =
-    System.get_env("DATABASE_URL") ||
+    System.get_env("DATABASE_ECTO_URL") ||
       raise """
-      environment variable DATABASE_URL is missing.
+      environment variable DATABASE_ECTO_URL is missing.
       For example: ecto://USER:PASS@HOST/DATABASE
       """
 
