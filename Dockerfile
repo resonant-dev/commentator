@@ -31,6 +31,7 @@ RUN mix deps.compile
 # build assets
 COPY lib lib
 COPY assets assets
+RUN npm install --prefix ./assets
 RUN mix assets.deploy
 
 # build project
