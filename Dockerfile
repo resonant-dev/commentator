@@ -52,7 +52,13 @@ RUN apt-get install -y --no-install-recommends \
     bash \
     openssl \
     ca-certificates \
-    postgresql-client
+    postgresql-client \
+    locales
+
+ENV LANG=en_US.UTF-8 \
+    && echo $LANG UTF-8 > /etc/locale.gen \
+    && locale-gen \
+    && update-locale LANG=$LANG
 
 EXPOSE 4000
 ENV MIX_ENV=prod
