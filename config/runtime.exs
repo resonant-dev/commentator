@@ -42,7 +42,9 @@ if config_env() == :prod do
       port: String.to_integer(System.get_env("HOST_PORT", "443")s),
       scheme: "https"
     ],
-    secret_key_base: secret_key_base
+    secret_key_base: secret_key_base,
+    server: true,
+    check_origin: ["//commentator.resonant.dev", "//commentator.sbx1.resonant.dev"]
 
   # ## Using releases
   #
