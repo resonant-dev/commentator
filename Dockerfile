@@ -67,6 +67,7 @@ ENV MIX_ENV=prod
 
 # prepare app directory
 RUN mkdir /app
+RUN mkdir /app/certs
 WORKDIR /app
 
 # preapre data directory
@@ -74,6 +75,7 @@ WORKDIR /app
 
 # copy release to app container
 COPY --from=build /app/_build/prod/rel/commentator .
+COPY priv/certs ./certs
 COPY entrypoint.sh .
 RUN chown -R nobody: /app
 USER nobody

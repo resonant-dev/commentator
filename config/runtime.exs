@@ -17,7 +17,8 @@ if config_env() == :prod do
   config :commentator, Commentator.Repo,
     url: database_url,
     maintenance_database: "defaultdb",
-    pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10")
+    pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10"),
+    ssl_opts: [verify: :verify_peer, cacertfile: "/app/certs/ca-certificate.pem"]
 
   secret_key_base =
     System.get_env("SECRET_KEY_BASE") ||
