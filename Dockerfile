@@ -70,7 +70,7 @@ RUN mkdir /app
 WORKDIR /app
 
 # preapre data directory
-RUN mkdir -p /app/data/mnesia
+# RUN mkdir -p /app/data/mnesia
 
 # copy release to app container
 COPY --from=build /app/_build/prod/rel/commentator .
