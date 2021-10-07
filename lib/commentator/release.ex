@@ -3,9 +3,8 @@ defmodule Commentator.Release do
   @app :commentator
 
   def migrate do
-    Application.ensure_started(:ssl)
-
     for repo <- repos() do
+      Application.ensure_started(:ssl)
       {:ok, _, _} = Ecto.Migrator.with_repo(repo, &Ecto.Migrator.run(&1, :up, all: true))
     end
   end
