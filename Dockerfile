@@ -32,11 +32,12 @@ RUN mix deps.compile
 COPY lib lib
 COPY assets assets
 RUN npm install --prefix ./assets
+RUN mix assets.deploy
+RUN mix phx.digest
 
 # build project
-RUN mix compile
-RUN mix assets.deploy
 COPY priv priv
+RUN mix compile
 
 
 # build release

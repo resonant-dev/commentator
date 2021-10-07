@@ -82,8 +82,7 @@ defmodule Commentator.MixProject do
       "ash.migrations": ["ash_postgres.generate_migrations --apis Commentator.Api"],
       "assets.deploy": [
         "cmd --cd assets npm run deploy",
-        "esbuild default --minify",
-        "phx.digest"
+        "esbuild default --minify"
       ]
     ]
   end
