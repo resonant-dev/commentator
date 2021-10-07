@@ -16,7 +16,7 @@ config :commentator, CommentatorWeb.Endpoint,
 config :commentator, Commentator.Repo,
   # socket_options: [:inet6],
   ssl: true,
-  ssl_opts: [cacertfile: 'priv/certs/ca-certificate.pem']
+  ssl_opts: [verify: :verify_peer, cacertfile: 'priv/certs/ca-certificate.pem']
 
 # Do not print debug messages in production
 config :logger, level: :info
