@@ -14,8 +14,6 @@ if config_env() == :prod do
       For example: ecto://USER:PASS@HOST/DATABASE
       """
 
-  Logger.info("Connecting to DB at #{database_url}")
-
   config :commentator, Commentator.Repo,
     # socket_options: [:inet6],
     ssl: true,
