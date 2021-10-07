@@ -15,9 +15,6 @@ if config_env() == :prod do
       """
 
   config :commentator, Commentator.Repo,
-    # socket_options: [:inet6],
-    ssl: true,
-    ssl_opts: [cacertfile: 'priv/certs/ca-certificate.pem'],
     url: database_url,
     maintenance_database: "defaultdb",
     pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10")

@@ -13,6 +13,11 @@ config :commentator, CommentatorWeb.Endpoint,
   url: [host: "commentator.sbx1.resonant.dev", port: 80],
   cache_static_manifest: "priv/static/cache_manifest.json"
 
+config :commentator, Commentator.Repo,
+  # socket_options: [:inet6],
+  ssl: true,
+  ssl_opts: [cacertfile: 'priv/certs/ca-certificate.pem']
+
 # Do not print debug messages in production
 config :logger, level: :info
 
