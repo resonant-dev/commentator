@@ -56,8 +56,8 @@ RUN apt-get install -y --no-install-recommends \
     postgresql-client \
     locales
 
-ENV LANG=en_US.UTF-8 \
-    && echo $LANG UTF-8 > /etc/locale.gen \
+ENV LANG=en_US.UTF-8
+RUN echo $LANG UTF-8 > /etc/locale.gen \
     && locale-gen \
     && update-locale LANG=$LANG
 
