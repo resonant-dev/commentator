@@ -31,8 +31,7 @@ RUN mix deps.compile
 # build assets
 COPY lib lib
 COPY assets assets
-RUN cd assets && npm install && npm run deploy
-RUN mix phx.digest
+RUN mix assets.deploy
 
 # build project
 COPY priv priv
