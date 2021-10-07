@@ -32,11 +32,12 @@ RUN mix deps.compile
 COPY lib lib
 COPY assets assets
 RUN npm install --prefix ./assets
-RUN mix assets.deploy
 
 # build project
-COPY priv priv
 RUN mix compile
+RUN mix assets.deploy
+COPY priv priv
+
 
 # build release
 # at this point we should copy the rel directory but
