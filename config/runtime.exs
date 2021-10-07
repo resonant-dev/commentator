@@ -39,7 +39,7 @@ if config_env() == :prod do
     ],
     url: [
       host: System.get_env("HOSTNAME", "commentator.resonant.dev"),
-      port: String.to_integer(System.get_env("HOST_PORT", "443")s),
+      port: String.to_integer(System.get_env("HOST_PORT", "443")),
       scheme: "https"
     ],
     secret_key_base: secret_key_base,
