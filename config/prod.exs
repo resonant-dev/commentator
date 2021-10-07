@@ -10,8 +10,10 @@ import Config
 # which you should run after static files are built and
 # before starting your production server.
 config :commentator, CommentatorWeb.Endpoint,
-  url: [host: "commentator.sbx1.resonant.dev", port: 443],
-  cache_static_manifest: "priv/static/cache_manifest.json"
+  url: [host: "commentator.sbx1.resonant.dev", port: 80],
+  cache_static_manifest: "priv/static/cache_manifest.json",
+  server: true,
+  check_origin: ["//commentator.resonant.dev", "//commentator.sbx1.resonant.dev"]
 
 # Do not print debug messages in production
 config :logger, level: :info
