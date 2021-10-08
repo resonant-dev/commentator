@@ -28,17 +28,17 @@ COPY config config
 RUN mix deps.get --only $MIX_ENV
 RUN mix deps.compile
 
-# build assets
 COPY lib lib
 COPY assets assets
-RUN npm install --prefix ./assets
+COPY priv priv
 
-# build project, compile surface so we have JS hooks
+# build assets
+RUN npm install --prefix ./assets
 RUN mix compile surface
 RUN mix assets.deploy
 RUN mix phx.digest
-COPY priv priv
 
+# build project, compile surface so we have JS hooks
 RUN mix compile
 
 # build release
