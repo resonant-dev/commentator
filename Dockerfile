@@ -33,11 +33,13 @@ COPY lib lib
 COPY assets assets
 RUN npm install --prefix ./assets
 
-# build project
-RUN mix compile
+# build project, compile surface so we have JS hooks
+RUN mix compile surface
 RUN mix assets.deploy
 RUN mix phx.digest
 COPY priv priv
+
+RUN mix compile
 
 # build release
 # at this point we should copy the rel directory but
