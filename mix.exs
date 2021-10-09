@@ -60,6 +60,7 @@ defmodule Commentator.MixProject do
       {:ash_phoenix, "~> 0.5.14"},
       {:timex, "~> 3.7"},
       {:prom_ex, "~> 1.4"},
+      {:logger_json, "~> 4.3"},
       {:credo, "~> 1.5", only: [:dev, :test], runtime: false},
       {:sobelow, "~> 0.11.1", only: [:dev, :test], runtime: false}
     ]

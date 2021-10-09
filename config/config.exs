@@ -24,6 +24,10 @@ config :commentator, CommentatorWeb.Endpoint,
   pubsub_server: Commentator.PubSub,
   live_view: [signing_salt: "UmsOdxft"]
 
+# Configures Elixir's Logger
+config :logger, backends: [LoggerJSON]
+config :commentator, Commentator.Repo, loggers: [{LoggerJSON.Ecto}, :log, [:info]]
+
 # Configures the mailer
 #
 # By default it uses the "Local" adapter which stores the emails
