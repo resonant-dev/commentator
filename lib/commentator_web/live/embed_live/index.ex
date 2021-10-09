@@ -35,7 +35,7 @@ defmodule CommentatorWeb.EmbedLive do
   end
 
   @impl true
-  def handle_info(%{topic: topic, payload: %Phoenix.Socket.Broadcast{}}, socket) do
+  def handle_info(%{topic: topic, payload: payload}, socket) do
     {:noreply,
      socket
      |> push_event("post_submit", %{})
