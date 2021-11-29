@@ -77,7 +77,7 @@
     local service = std.join('-', [name, 'service']),
 
     spec: {
-      entrypoints: [
+      entryPoints: [
         'websecure',
         'web'
       ],
