@@ -74,7 +74,7 @@
   },
 
   IngressCRD(name, routes, port=4000): $._Object('traefik.containo.us/v1alpha1', 'IngressRoute', name) {
-    local appName = std.join('-', [name, 'service']),
+    local service = std.join('-', [name, 'service']),
 
     spec: {
       entrypoints: [
