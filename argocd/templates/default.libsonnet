@@ -5,6 +5,7 @@
     kind: kind,
     metadata: {
       name: name + '-' + std.asciiLower(kind),
+      namespace: 'default',
       labels: { name: std.join("-", std.split(this.metadata.name, ":")) },
       annotations: {},
     },
