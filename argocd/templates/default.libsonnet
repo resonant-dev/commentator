@@ -10,12 +10,11 @@
     },
   },
 
-  Deployment(name, image, port=4000):
-  local appName = std.join('-', [name, 'app']);
-  local config = std.join('-', [name, 'config']);
-  local secrets = std.join('-', [name, 'secrets']);
+  Deployment(name, image, port=4000): $._Object('apps/v1', 'Deployment', name) {
+    local appName = std.join('-', [name, 'app']),
+    local config = std.join('-', [name, 'config']),
+    local secrets = std.join('-', [name, 'secrets']),
 
-  $._Object('apps/v1', 'Deployment', name) {
     spec: {
       replicas: 1,
       revisionHistoryLimit: 1,
