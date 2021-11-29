@@ -59,7 +59,7 @@
   },
 
   Service(name, port=4000, targetPort=port, app=name): $._Object('v1', 'Service', name) {
-    local appName = std.join('-', [name, 'service']),
+    local appName = std.join('-', [name, 'app']),
     spec: {
       ports: [
         {
