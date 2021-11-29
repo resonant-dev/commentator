@@ -13,7 +13,7 @@
 
   Deployment(name, image, port=4000): $._Object('apps/v1', 'Deployment', name) {
     local appName = std.join('-', [name, 'app']),
-    local config = std.join('-', [name, 'config']),
+    local config = std.join('-', [name, 'configmap']),
     local secrets = std.join('-', [name, 'secrets']),
 
     spec: {
@@ -59,6 +59,7 @@
   },
 
   Service(name, port=4000, targetPort=port, app=name): $._Object('v1', 'Service', name) {
+    local appName = std.join('-', [name, 'app']),
     spec: {
       ports: [
         {
@@ -67,12 +68,14 @@
         },
       ],
       selector: {
-        app: app
+        app: appName
       },
     },
   },
 
-  IngressCRD(name, routes=[name], service=name, port=4000): $._Object('traefik.containo.us/v1alpha1', 'IngressRoute', name) {
+  IngressCRD(name, routes, port=4000): $._Object('traefik.containo.us/v1alpha1', 'IngressRoute', name) {
+    local appName = std.join('-', [name, 'service']),
+
     spec: {
       entrypoints: [
         'websecure',
