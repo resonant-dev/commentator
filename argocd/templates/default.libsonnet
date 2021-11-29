@@ -21,7 +21,7 @@
       revisionHistoryLimit: 1,
       selector: {
         matchLabels: {
-          app: name
+          app: appName
         },
       },
       template: {
