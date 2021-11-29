@@ -27,7 +27,7 @@
       template: {
         metadata: {
           labels: {
-            app: name
+            app: appName
           },
         },
         spec: {
