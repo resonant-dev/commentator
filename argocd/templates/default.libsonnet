@@ -59,7 +59,7 @@
   },
 
   Service(name, port=4000, targetPort=port, app=name): $._Object('v1', 'Service', name) {
-    local appName = std.join('-', [name, 'app']),
+    local appName = std.join('-', [name, 'service']),
     spec: {
       ports: [
         {
@@ -74,7 +74,7 @@
   },
 
   IngressCRD(name, routes, port=4000): $._Object('traefik.containo.us/v1alpha1', 'IngressRoute', name) {
-    local service = std.join('-', [name, 'app']),
+    local service = std.join('-', [name, 'service']),
 
     spec: {
       entryPoints: [
