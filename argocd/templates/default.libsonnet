@@ -96,9 +96,9 @@
   },
 
   App(name, image, routes, config): [
-    Deployment(name, image),
-    Service(name),
-    IngressCRD(name, routes),
-    ConfigMap(name, config),
+    $.Deployment(name, image),
+    $.Service(name),
+    $.IngressCRD(name, routes),
+    $.ConfigMap(name, config),
   ],
 }
