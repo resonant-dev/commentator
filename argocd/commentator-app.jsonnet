@@ -1,6 +1,10 @@
 local template = import 'templates/default.libsonnet';
 
-function(name='commentator', namespace='default', env)
+function()
+  local name = std.extVar('name');
+  local ns = std.extVar('ns');
+  local env = std.extVar('environment');
+
   template.App(
     std.join('-', [env, name]),
     'ghcr.io/resonant-dev/commentator:latest',
