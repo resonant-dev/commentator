@@ -20,7 +20,7 @@ defmodule Commentator.MixProject do
   def application do
     [
       mod: {Commentator.Application, []},
-      extra_applications: [:logger, :runtime_tools]
+      extra_applications: [:ssl, :logger, :runtime_tools]
     ]
   end
 
@@ -60,6 +60,7 @@ defmodule Commentator.MixProject do
       {:ash_phoenix, "~> 0.5.14"},
       {:timex, "~> 3.7"},
       {:prom_ex, "~> 1.4"},
+      {:logger_json, "~> 4.3"},
       {:credo, "~> 1.5", only: [:dev, :test], runtime: false},
       {:sobelow, "~> 0.11.1", only: [:dev, :test], runtime: false}
     ]
@@ -82,8 +83,7 @@ defmodule Commentator.MixProject do
       "ash.migrations": ["ash_postgres.generate_migrations --apis Commentator.Api"],
       "assets.deploy": [
         "cmd --cd assets npm run deploy",
-        "esbuild default --minify",
-        "phx.digest"
+        "esbuild default --minify"
       ]
     ]
   end

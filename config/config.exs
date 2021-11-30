@@ -24,6 +24,14 @@ config :commentator, CommentatorWeb.Endpoint,
   pubsub_server: Commentator.PubSub,
   live_view: [signing_salt: "UmsOdxft"]
 
+# Configures Elixir's Logger
+config :logger, backends: [LoggerJSON]
+config :commentator, Commentator.Repo, loggers: [{LoggerJSON.Ecto}, :log, [:info]]
+
+config :logger_json, :backend,
+  metadata: [:file, :line, :function, :module, :application, :httpRequest, :query],
+  formatter: Commentator.LoggerFormatter
+
 # Configures the mailer
 #
 # By default it uses the "Local" adapter which stores the emails
@@ -50,13 +58,9 @@ config :esbuild,
     env: %{"NODE_PATH" => Path.expand("../deps", __DIR__)}
   ]
 
-# Configures Elixir's Logger
-config :logger, :console,
-  format: "$time $metadata[$level] $message\n",
-  metadata: [:request_id]
-
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
+config :phoenix, :logger, false
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.

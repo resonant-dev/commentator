@@ -8,17 +8,17 @@ import Config
 # The block below contains prod specific runtime configuration.
 if config_env() == :prod do
   database_url =
-    System.get_env("DATABASE_URL") ||
+    System.get_env("DATABASE_ECTO_URL") ||
       raise """
-      environment variable DATABASE_URL is missing.
+      environment variable DATABASE_ECTO_URL is missing.
       For example: ecto://USER:PASS@HOST/DATABASE
       """
 
   config :commentator, Commentator.Repo,
-    # ssl: true,
-    # socket_options: [:inet6],
     url: database_url,
-    pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10")
+    maintenance_database: "defaultdb",
+    pool_size: String.to_integer(System.get_env("POOL_SIZE") || "10"),
+    ssl_opts: [verify: :verify_peer, cacertfile: "/app/certs/ca-certificate.pem"]
 
   secret_key_base =
     System.get_env("SECRET_KEY_BASE") ||
@@ -36,7 +36,14 @@ if config_env() == :prod do
       ip: {0, 0, 0, 0, 0, 0, 0, 0},
       port: String.to_integer(System.get_env("PORT") || "4000")
     ],
-    secret_key_base: secret_key_base
+    url: [
+      host: System.get_env("HOSTNAME", "commentator.resonant.dev"),
+      port: String.to_integer(System.get_env("HOST_PORT", "443")),
+      scheme: "https"
+    ],
+    secret_key_base: secret_key_base,
+    server: true,
+    check_origin: ["//commentator.resonant.dev", "//commentator.sbx1.resonant.dev"]
 
   # ## Using releases
   #
