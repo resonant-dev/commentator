@@ -11,8 +11,5 @@ function()
     [
         'commentator.sbx1.resonant.dev',
     ],
-    {
-      PORT: '4000',
-      POOL_SIZE: '10'
-    }
+    env
   )
