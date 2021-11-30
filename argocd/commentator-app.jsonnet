@@ -1,9 +1,9 @@
 local template = import 'templates/default.libsonnet';
 
-function()
+function(env)
   local name = std.extVar('name');
   local ns = std.extVar('ns');
-  local env = std.extVar('environment');
+  // local env = std.extVar('environment');
 
   template.App(
     std.join('-', [env, name]),
