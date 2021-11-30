@@ -3,10 +3,10 @@ local template = import 'templates/default.libsonnet';
 function(env)
   local name = std.extVar('name');
   local ns = std.extVar('ns');
-  // local env = std.extVar('environment');
+  local environment = std.extVar('environment');
 
   template.App(
-    std.join('-', [env, name]),
+    std.join('-', [environment, name]),
     'ghcr.io/resonant-dev/commentator:latest',
     [
         'commentator.sbx1.resonant.dev',
