@@ -68,7 +68,6 @@ EXPOSE 4000
 ENV MIX_ENV=prod
 
 # prepare app directory
-RUN mkdir /app
 RUN mkdir /app/certs
 WORKDIR /app
 
